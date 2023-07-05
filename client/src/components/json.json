@@ -1,0 +1,47 @@
+{
+    "id": 591,
+    "age_ratings": [5064, 11653, 124172],
+    "aggregated_rating": 89,
+    "aggregated_rating_count": 1,
+    "alternative_names": [2829, 2830, 2831],
+    "category": 0,
+    "collection": 124,
+    "cover": 90304,
+    "created_at": 1317745735,
+    "external_games": [13817, 76586, 94841, 140389, 251966],
+    "first_release_date": 1059091200,
+    "follows": 2,
+    "game_modes": [1, 2],
+    "genres": [12, 15, 16],
+    "involved_companies": [1424, 19287, 19288],
+    "keywords": [
+        147, 226, 415, 649, 805, 1162, 1422, 1735, 1923, 2208, 3182, 3533, 4248,
+        4619, 5370
+    ],
+    "name": "Age of Wonders: Shadow Magic",
+    "platforms": [3, 6],
+    "player_perspectives": [3],
+    "rating": 79.8697053575727,
+    "rating_count": 24,
+    "release_dates": [22306, 22307, 190326],
+    "screenshots": [970, 971, 972, 973, 974],
+    "similar_games": [
+        2365, 5652, 7615, 10297, 13196, 14394, 19404, 26845, 115653, 119171
+    ],
+    "slug": "age-of-wonders-shadow-magic",
+    "summary": "Age of Wonders: Shadow Magic is the third entry in the award winning fantasy strategy series. This fan-favorite enhances the series' praised fusion of empire building, role-playing and tactical combat with the eerie Shadow World and battle with races never before seen, across new and diverse landscapes. \n \nCombined with the option of creating a totally unique environment with the map generator and rewriting the history of this world through the enhanced campaign editor, you are ensured a constant stream of completely new game experiences.",
+    "tags": [
+        17, 268435468, 268435471, 268435472, 536871059, 536871138, 536871327,
+        536871561, 536871717, 536872074, 536872334, 536872647, 536872835, 536873120,
+        536874094, 536874445, 536875160, 536875531, 536876282
+    ],
+    "themes": [17],
+    "total_rating": 84.43485267878634,
+    "total_rating_count": 25,
+    "updated_at": 1683895607,
+    "url": "https://www.igdb.com/games/age-of-wonders-shadow-magic",
+    "videos": [3105, 3107],
+    "websites": [17552, 17553, 64076, 118557, 339011],
+    "checksum": "230e3566-13bc-1fde-5618-733afd4e949f",
+    "language_supports": [457728, 480334]
+}
