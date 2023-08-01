@@ -1,7 +1,6 @@
 require('dotenv').config()
 const Game = require('../models/game.model')
 const bcrypt = require('bcrypt')
-const igdb = require('igdb-api-node').default
 
 module.exports.getOne = (req, res) => {
   Game.findOne({ _id: req.params.id })

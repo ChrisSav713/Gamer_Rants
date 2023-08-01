@@ -1,25 +1,24 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { useSessionStorage } from './useStorage'
+//import { useSessionStorage } from './useStorage'
 import { GameContext } from '../App'
-
+//import {GameDetail} from '../components/GameDetail'
+import MediaScroll from '../components/MediaScroll'
+import SimilarIndividual from '../components/SimilarIndividual'
 import {
   AgeRating,
   AgeRatingCategory,
   Platform_Category,
   Game_Category,
   Game_Status,
-  Image_Sizes
+  //Image_Sizes
 } from '../constants/Enums'
-
-import AwesomeSlider from 'react-awesome-slider'
-import withAutoplay from 'react-awesome-slider/dist/autoplay'
-import 'react-awesome-slider/dist/styles.css'
 
 function Detail() {
   const cont = useContext(GameContext)
-  const { proxyInfo, setProxyInfo, removeProxyInfo } = cont
+  const { proxyInfo } = cont
+  //const { setProxyInfo, removeProxyInfo } = cont
   const [game, setGame] = useState({})
   const { id } = useParams()
 
@@ -32,7 +31,7 @@ function Detail() {
         `fields name, 
         age_ratings.category, age_ratings.content_descriptions.description, age_ratings.rating, age_ratings.rating_cover_url,
         cover.image_id, cover.width, cover.height,
-        videos.video_id, videos.name, artworks.width, artworks.height, artworks.image_id,
+        videos.video_id, videos.name, artworks.width, artworks.url, artworks.height, artworks.image_id, screenshots.image_id, screenshots.url, screenshots.width, screenshots.height,
         platforms.category, platforms.abbreviation, platforms.name, platforms.platform_family.name, platforms.platform_logo.image_id, platforms.platform_logo.width, platforms.platform_logo.height,
         themes.name,
         involved_companies.company.name, involved_companies.company.description, involved_companies.company.logo.image_id, involved_companies.company.logo.width, involved_companies.company.logo.height, involved_companies.developer, involved_companies.publisher, involved_companies.porting, involved_companies.supporting,
@@ -61,21 +60,10 @@ function Detail() {
       .finally()
   }
 
-  const AutoplaySlider = withAutoplay(AwesomeSlider)
-  let allmedia = []
-
-  const images = [
-    'https://images.igdb.com/igdb/image/upload/t_cover_small/co66up.png',
-    'https://images.igdb.com/igdb/image/upload/t_cover_med/gjc9m7jasmxs6ofv6i3h.jpg',
-    'https://images.igdb.com/igdb/image/upload/t_cover_med/co69ev.jpg'
-  ]
-
-  let slider = ''
-
-  useEffect(() => {
+    useEffect((sendCustomRequest) => {
     console.log('id in ' + id)
     sendCustomRequest()
-  }, [])
+    }, [id])
 
   return (
     <div>
@@ -171,76 +159,60 @@ function Detail() {
       </div>
 
       {/* Media */}
-      {/* videos.video_id, videos.name, artworks.width, artworks.height, artworks.image_id */}
+      {/* videos.video_id, videos.name, artworks.width, artworks.url, artworks.height, artworks.image_id, screenshots.image_id, screenshots.url, screenshots.width, screenshots.height */}
       <div className='grid grid-flow-row grid-rows-1 gap-4 p-5'>
         <div className='rounded-lg bg-purple-100 p-10 text-center text-lg font-bold text-purple-500 shadow-lg'>
           <h2>Media</h2>
-          <div className='rounded-lg bg-red-100 p-1 text-center text-lg font-bold text-red-500 shadow-lg'>
-            {game?.videos != undefined &&
-              game?.videos?.map((item) => {
-                // {
-                //   allmedia.push(
-                //     `https://www.youtube.com/embed/${item?.video_id}?controls=0`
-                //   )
-                // }
-                return (
-                  <iframe
-                    width='420'
-                    height='315'
-                    src={`https://www.youtube.com/embed/${item?.video_id}?controls=0`}
-                  ></iframe>
-                )
-              })}
-            {game?.artworks != undefined &&
-              game?.artworks?.map((item) => {
-                {
-                  allmedia.push(
-                    `https://images.igdb.com/igdb/image/upload/t_screenshot_big/${item?.image_id}.jpg`
-                  )
-                }
-                return (
-                  <>
-                    <img src={item?.url} alt={item?.image_id}></img>
-                    <div
-                      style={{
-                        backgroundImage: `url("https://images.igdb.com/igdb/image/upload/t_screenshot_big/${item?.image_id}.jpg")`,
-                        backgroundPosition: 'center',
-                        backgroundSize: 'cover',
-                        backgroundRepeat: 'no-repeat',
-                        width: '889px',
-                        height: '500px'
-                      }}
-                    ></div>
-                    <p>
-                      {item?.width}x{item?.height}
-                    </p>
-                  </>
-                )
-              })}
-            <div>
-              {
-                (slider = (
-                  <AutoplaySlider
-                    className='h-96'
-                    play={true}
-                    cancelOnInteraction={false} // should stop playing on user interaction
-                    interval={6000}
-                  >
-                    {allmedia.map((item) => {
-                      return <div data-src={item} />
-                    })}
-                  </AutoplaySlider>
-                ))
-              }
-              {/* <AwesomeSlider>
-                {allmedia.map((item) => {
-                  return <div data-src={item} />
-                })}
-              </AwesomeSlider> */}
-              {console.log(allmedia)}
-              {slider}
-            </div>
-          </div>
+
+          <MediaScroll game={game}/>
+
+          {/* <div className='rounded-lg bg-red-100 p-1 text-center text-lg font-bold text-red-500 shadow-lg'>
+            {game?.videos?.map((item) => {
+              return (
+                <iframe
+                  width='420'
+                  height='315'
+                  src={`https://www.youtube.com/embed/${item?.video_id}?controls=0`}
+                ></iframe>
+              )
+            })}
+            {game?.screenshots?.map((item) => {
+              return (
+                <>
+                  <img src={item?.url} alt={item?.image_id}></img>
+                  <div
+                    style={{
+                      backgroundImage: `url("https://images.igdb.com/igdb/image/upload/t_screenshot_big/${item?.image_id}.jpg")`,
+                      backgroundPosition: 'center',
+                      backgroundSize: 'cover',
+                      backgroundRepeat: 'no-repeat',
+                      width: '889px',
+                      height: '500px'
+                    }}
+                  ></div>
+                </>
+              )
+            })}
+            {game?.artworks?.map((item) => {
+              return (
+                <>
+                  <img src={item?.url} alt={item?.image_id}></img>
+                  <div
+                    style={{
+                      backgroundImage: `url("https://images.igdb.com/igdb/image/upload/t_screenshot_big/${item?.image_id}.jpg")`,
+                      backgroundPosition: 'center',
+                      backgroundSize: 'cover',
+                      backgroundRepeat: 'no-repeat',
+                      width: '889px',
+                      height: '500px'
+                    }}
+                  ></div>
+                  <p>
+                    {item?.width}x{item?.height}
+                  </p>
+                </>
+              )
+            })} */}
         </div>
       </div>
 
@@ -434,33 +406,14 @@ function Detail() {
 
       {/* Similar Games */}
       {/* similar_games.name, similar_games.cover.image_id, similar_games.cover.width, similar_games.cover.height, similar_games.total_rating */}
-      <div className='grid grid-flow-row grid-rows-1 gap-4 p-5'>
-        <div className='rounded-lg bg-purple-100 p-10 text-center text-lg font-bold text-purple-500 shadow-lg'>
-          <h2>Similar Games</h2>
+      <div className='grid grid-flow-row grid-rows-1 gap-4 p-5'>Similar Games
+      <div id="container" className="container h-auto flex overflow-auto scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100">
           <div className='flex flex-row rounded-lg bg-red-100 p-1 text-center text-lg font-bold text-red-500 shadow-lg'>
             {game?.similar_games != undefined &&
               game?.similar_games?.map((item) => {
                 return (
-                  <div flex flex-col>
-                    <p>{item?.name}</p>
-                    <p>{item?.total_rating}</p>
-
-                    <img
-                      src={`https://images.igdb.com/igdb/image/upload/t_cover_small/${item?.cover?.image_id}.jpg`}
-                      alt={item?.name}
-                      width='90'
-                      height='128'
-                    ></img>
-                    <div
-                      style={{
-                        backgroundImage: `url("https://images.igdb.com/igdb/image/upload/t_cover_big/${item?.cover?.image_id}.jpg")`,
-                        backgroundPosition: 'center',
-                        backgroundSize: 'cover',
-                        backgroundRepeat: 'no-repeat',
-                        width: '90px',
-                        height: '128px'
-                      }}
-                    ></div>
+                  <div className='flex flex-col justify-between overflow-auto'>
+                    <SimilarIndividual item={item} game={game}/>
                   </div>
                 )
               })}

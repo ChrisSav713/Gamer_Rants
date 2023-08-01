@@ -1,23 +1,16 @@
 import React, { useState, useContext, useRef } from 'react'
-import { useSessionStorage } from './useStorage'
+// import { useSessionStorage } from './useStorage'
 import GameList from './GameList'
 import axios from 'axios'
 import { GameContext } from '../App'
-import {
-  AgeRating,
-  AgeRatingCategory,
-  Platform_Category,
-  Game_Category,
-  Game_Status,
-  Image_Sizes
-} from '../constants/Enums'
-
-import imageB from '../components/imgs/B.jpg'
-import imageC from '../components/imgs/C.jpg'
-
-import AwesomeSlider from 'react-awesome-slider'
-import withAutoplay from 'react-awesome-slider/dist/autoplay'
-import 'react-awesome-slider/dist/styles.css'
+// import {
+//   AgeRating,
+//   AgeRatingCategory,
+//   Platform_Category,
+//   Game_Category,
+//   Game_Status,
+//   Image_Sizes
+// } from '../constants/Enums'
 
 import { Fragment } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
@@ -34,15 +27,16 @@ import {
 function Search(props) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [searchResult, setSearchResult] = useState([{}])
-  const cont = useContext(GameContext)
-  const { proxyInfo, setProxyInfo, removeProxyInfo } = cont
-  const inputEndpoint = useRef()
-  const inputFields = useRef()
+  const cont = useContext(GameContext)  
   const inputSearch = useRef()
-  const inputWhere = useRef()
-  const inputLimit = useRef()
-  const inputOffset = useRef()
-  const inputSort = useRef()
+  const { proxyInfo, setProxyInfo} = cont
+  // const { removeProxyInfo } = cont
+  // const inputEndpoint = useRef()
+  // const inputFields = useRef()
+  // const inputWhere = useRef()
+  // const inputLimit = useRef()
+  // const inputOffset = useRef()
+  // const inputSort = useRef()
 
   const sortOptions = [
     { name: 'Title', href: '#', current: true },
@@ -214,41 +208,21 @@ function Search(props) {
       })
   }
 
-  const searchMethods = [
-    { id: 'title', title: 'Title' },
-    { id: 'platform', title: 'Platform' },
-    { id: 'genre', title: 'Genre' },
-    { id: 'theme', title: 'Theme' },
-    { id: 'company', title: 'Company' },
-    { id: 'character', title: 'Character' },
-    { id: 'rating', title: 'Rating' }
-  ]
+  // const searchMethods = [
+  //   { id: 'title', title: 'Title' },
+  //   { id: 'platform', title: 'Platform' },
+  //   { id: 'genre', title: 'Genre' },
+  //   { id: 'theme', title: 'Theme' },
+  //   { id: 'company', title: 'Company' },
+  //   { id: 'character', title: 'Character' },
+  //   { id: 'rating', title: 'Rating' }
+  // ]
 
-  const searchSorts = [
-    { id: 'relevancy', title: 'Relevancy' },
-    { id: 'rating', title: 'Rating' },
-    { id: 'releasedate', title: 'Release Date' }
-  ]
-
-  const AutoplaySlider = withAutoplay(AwesomeSlider)
-
-  const images = [
-    'https://www.youtube.com/embed/BHdojrcu61E?controls=0',
-    'https://www.youtube.com/embed/XD9JPHmu_cU?controls=0',
-    'https://images.igdb.com/igdb/image/upload/t_screenshot_big/ar21mj.jpg'
-  ]
-  const slider = (
-    <AutoplaySlider
-      className='h-96'
-      play={true}
-      cancelOnInteraction={false} // should stop playing on user interaction
-      interval={6000}
-    >
-      {images.map((item) => {
-        return <div data-src={item} />
-      })}
-    </AutoplaySlider>
-  )
+  // const searchSorts = [
+  //   { id: 'relevancy', title: 'Relevancy' },
+  //   { id: 'rating', title: 'Rating' },
+  //   { id: 'releasedate', title: 'Release Date' }
+  // ]
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -262,8 +236,6 @@ function Search(props) {
       >
         Get Token
       </button>
-
-      {slider}
 
       {/* Search Section */}
       <h2 className='pl-10 pr-10 pt-10 text-xl'>Search Games</h2>
@@ -347,10 +319,9 @@ function Search(props) {
                     {/* Filters */}
                     <form className='mt-4 border-t border-gray-200'>
                       <h3 className='sr-only'>Categories</h3>
-                      <ul
-                        role='list'
-                        className='px-2 py-3 font-medium text-gray-900'
-                      >
+                      <ul className='px-2 py-3 font-medium text-gray-900'>
+                        {' '}
+                        {/* role='list'  */}
                         {subCategories.map((category) => (
                           <li key={category.name}>
                             <a href={category.href} className='block px-2 py-3'>
@@ -426,8 +397,9 @@ function Search(props) {
 
           <main className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
             <div className='flex items-baseline justify-between border-b border-gray-200 pb-6'>
-              <h1 className='text-4xl font-bold tracking-tight text-gray-900'></h1>
-
+              <h1 className='text-4xl font-bold tracking-tight text-gray-900'>
+                Heading
+              </h1>
               <div className='flex items-center'>
                 <Menu as='div' className='relative inline-block text-left'>
                   <div>
@@ -501,10 +473,8 @@ function Search(props) {
                 {/* Filters */}
                 <form className='hidden lg:block'>
                   <h3 className='sr-only'>Categories</h3>
-                  <ul
-                    role='list'
-                    className='space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900'
-                  >
+                  <ul className='space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900'>
+                    {/* role='list'  */}
                     {subCategories.map((category) => (
                       <li key={category.name}>
                         <a href={category.href}>{category.name}</a>

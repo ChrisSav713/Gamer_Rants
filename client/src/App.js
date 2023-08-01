@@ -4,11 +4,13 @@ import Navbar from './components/Navbar'
 import Connect from './components/Connect'
 import Search from './components/Search'
 import Detail from './components/Detail'
+import { useTheme } from './hooks/useTheme'
+import ThemeSelector from './components/ThemeSelector'
 import { useSessionStorage } from './components/useStorage'
-
+import './App.css'
 export const GameContext = createContext()
 
-function App() {
+function App({ Component, pageProps }) {
   const [proxyInfo, setProxyInfo, removeProxyInfo] = useSessionStorage(
     'proxy',
     {
@@ -27,11 +29,15 @@ function App() {
     [proxyInfo, setProxyInfo, removeProxyInfo]
   )
 
+  const { color, mode } = useTheme()
+  document.body.style.background = color
+
   return (
     <GameContext.Provider value={providerValue}>
-      <div className='App'>
+      <div className={`App ${mode}`}>
         <Navbar />
         <BrowserRouter>
+          <ThemeSelector />
           <Routes>
             <Route path='/connect' element={<Connect />} />
             <Route path='/search' element={<Search />} />
